@@ -11,9 +11,10 @@ const server = http.createServer(app)
 mongoose.connect(process.env.MOGODB_URI)
 
 app.use(express.json())
+app.set('view engine', 'pug')
 
 app.get('/', (req, res) => {
-    res.send('Server is running')
+    res.render('home')
 })
 
 server.listen(process.env.PORT)
