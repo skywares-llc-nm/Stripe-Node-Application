@@ -1,0 +1,20 @@
+html
+  head
+    title GFERRARO - Receive Payments and Payouts
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
+      
+  body
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        a.navbar-brand(href='/') GFERRARO
+        .collapse.navbar-collapse.ml-auto
+            ul.navbar-nav
+                li.nav-item
+                    a.nav-link(href='/')
+                        | Home 
+                li.nav-item
+                    a.nav-link(href='/login') Login
+                li.nav-item
+                    a.nav-link(href='/register') Sign up
+
+    
+    block content
