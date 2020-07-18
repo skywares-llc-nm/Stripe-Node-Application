@@ -1,0 +1,17 @@
+extends layout.pug
+
+block content
+    .container.jumbotron.mt-4.text-center
+        h2 Welcome to GFERRARO
+        h4
+            | Please Go to 
+            if current_user
+                a.btn.btn-success(href='/profile') Profile
+            else
+                a.btn.btn-info(href='/auth/login') Login
+                | &nbsp;
+                a.btn.btn-warning(href='/auth/register') Register
+        h5
+            | Developed with Love by  
+            a(href='https://github.com/AbdulRehmanMehar' target='_blank') Abdul Rehman
+            | .
