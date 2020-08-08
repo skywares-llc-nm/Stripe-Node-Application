@@ -1,0 +1,47 @@
+extends layout.pug
+
+block content
+    h1 Earnings Model
+    p Stores Earnings created by the Customer.
+
+    hr
+
+    h2 Schema
+    ul
+        li Seller ID: 
+            code ObjectId
+        li Order ID: 
+            code ObjectId
+        li Amount: 
+            code Number
+        li Withdrawn: 
+            code Boolean
+
+    h4 The  
+        code Seller ID  
+        | Field
+
+    p Foreign Key, that stores the Id of the User (where role == 'seller'), who owns the Product on which the Order is placed! In simple words, It store 
+        a(href="/docs/models/product") Product.
+        |owner_id
+
+    h4 The 
+        code Order ID  
+        | Field
+
+    p Foreign Key, that stores the Id of the Order, placed on the Seller's Product.
+
+
+    h4 The 
+        code Amount 
+        | Field
+
+    p Store amount the Seller earned by selling the product (It's actually 
+        a(href="/docs/models/product") Product.
+        |price - application_fee).
+
+    h4 The 
+        code Withdrawn 
+        | Field
+
+    p To make sure, an earning is withdrawn once!
