@@ -1,0 +1,149 @@
+extends ../layout.pug
+
+block content
+    h1 Payment Route
+    p Handles routes that start with 
+        code /bills
+
+    hr
+
+    h3 Imports
+    ul
+        li dotEnv (to use .env variables)
+        li 
+            a(href="/docs/models/user") User Model 
+        li Express (for routing)
+        li 
+            a(href="/docs/models/earnings") Earnings Model
+        li Stripe
+
+        li Express Validator (to validate form data)
+        li 
+            a(href="/docs/middlewares/authenticated_seller") Authenticated Seller Middleware
+
+    hr
+
+    h3 
+        code /seller-verification 
+        | GET Route
+
+    p Uses 
+        a(href="/docs/middlewares/authenticated_seller") Authenticated Seller 
+        | Middleware to authenticate current_user has seller role.
+
+    p It checks, the current_user (after the middleware, we know it has seller role) if he has 
+        code stripe_account_id 
+        |. If he don't, application uses 
+        code Stripe SDK 
+        | to create his Stripe account. Then we update the user's 
+        code stripe_account_id 
+        | in the database and in the session (by resetting the session). 
+
+    p If user already has 
+        code stripe_account_id 
+        |, it uses that.
+
+    p Then, application uses 
+        code Stripe SDK
+        | to create account_link using 
+        code account.id
+        | (from Stripe, we stored in database as 
+        code stripe_account_id
+        | ). And redirects him to stripe (uses 
+        b Stripe Onboarding
+        | to get User's information).
+
+    p And..., 
+        b Stripe Onboarding 
+        | redirects back to 
+        code /bills/card-details 
+
+    hr
+
+
+    h3 
+        code /card-details
+        | GET Route
+
+    p Uses 
+        a(href="/docs/middlewares/authenticated_seller") Authenticated Seller 
+        | Middleware to authenticate current_user has seller role.
+
+    p Renders   
+        code card-details.pug
+        | which uses 
+        b Stripe.js 
+        | to create Card Token. The view sends the token as FormData to the server.
+
+    hr
+
+    h3 
+        code /card-details
+        | POST Route
+
+    p Uses 
+        a(href="/docs/middlewares/authenticated_seller") Authenticated Seller 
+        | Middleware to authenticate current_user has seller role.
+
+    p Uses Express Validator to validate 
+        code stripeToken 
+        |. If invalid, renders 
+        code card-details.pug
+        | with errors.
+
+    
+    p Then, it creates external account using 
+        b Stripe SDK 
+        | and redirects to homepage.
+
+    p If any error occurs while creating external account, it renders 
+        code  card-details.pug
+        | with the error.
+
+    hr 
+
+    h3 
+        code /earnings 
+        | GET Route
+
+    p Uses 
+        a(href="/docs/middlewares/authenticated_seller") Authenticated Seller 
+        | Middleware to authenticate current_user has seller role.
+
+    p Gets all the earnings documents (from database) by the user (because of middleware, we know he's seller), and renders 
+        code earning.pug 
+        | with earnings documents.
+
+    hr
+
+    h3 
+        code /earnings/:eid/withdraw
+        | GET Route
+
+    p Uses 
+        a(href="/docs/middlewares/authenticated_seller") Authenticated Seller 
+        | Middleware to authenticate current_user has seller role.
+
+    p Checks if there is earning document and 
+        code Earnings.withdrawn 
+        | = False (It means, the earning is not already withdrawn), It creates payout to
+        code User.stripe_account_id 
+        | account using 
+        b Stripe SDK
+        |. Then it updates the 
+        code Earnings.withdrawn
+        | = True and responds with 
+        pre Amount Transfered!
+
+    p If there's not any earning document or it is already withdrawn, server responds with 
+        pre something went wrong
+
+    p If any error occurs during the process, it responds with Error.
+
+
+
+
+
+    
+
+    
