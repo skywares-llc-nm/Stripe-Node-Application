@@ -1,0 +1,57 @@
+extends layout.pug
+
+block content
+    .container.mt-4
+        form#card-verification-form(action='/bills/card-details', method='POST')
+            .form-group
+                label(for='card-number') Card Number
+                input#card-number.form-control(type='number' name='card-number' placeholder='Enter Card Number')
+
+            .form-group
+                label(for='card-cvc') Card CVC
+                input#card-cvc.form-control(type='number' name='card-cvc' placeholder='Enter Card CVC')
+
+            .form-group
+                label(for='card-month') Expiration Month
+                input#card-month.form-control(type='number' name='card-month' placeholder='Enter Card Expiration Month')
+            
+            .form-group
+                label(for='card-year') Expiration Year
+                input#card-year.form-control(type='number' name='card-year' placeholder='Enter Card Expiration year')
+            
+                input#stripeToken(type="hidden", name="stripeToken" )
+
+
+            if errors
+                .form-group
+                    each error in errors
+                        p.text-danger #{error.msg + ' of ' + error.param.toUpperCase()}
+
+            button#card-verification-form-btn.btn.btn-primary(type='submit') Submit
+
+    
+    script(src='https://js.stripe.com/v2/')
+    script(type='text/javascript').
+        Stripe.setPublishableKey('pk_test_ZbQH2iaptyiq43nOgXvS1Elv');
+        let form = document.getElementById('card-verification-form');
+        let formBtn = document.getElementById('card-verification-form-btn');
+        formBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            Stripe.card.createToken({
+                number: document.getElementById('card-number').value,
+                cvc: document.getElementById('card-cvc').value,
+                exp_month: document.getElementById('card-month').value,
+                exp_year: document.getElementById('card-year').value,
+                currency: 'usd'
+            }, function(status, response) {
+                if (response.error) {
+                    alert(response.error.message);
+                } else {
+                    document.getElementById('stripeToken').value = response.id
+                    form.submit()
+                }
+            });
+        });
+
+
+
