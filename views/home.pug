@@ -3,15 +3,26 @@ extends layout.pug
 block content
     .container.jumbotron.mt-4.text-center
         h2 Welcome to GFERRARO
-        h4
-            | Please Go to 
-            if current_user
-                a.btn.btn-success(href='/profile') Profile
-            else
+            
+        if current_user
+            h4
+                | Hello #{current_user.name} &nbsp;
+
+            br
+            .d-block
+                if !current_user.stripe_account_id && current_user.role == 'seller'
+                    a.btn.btn-warning(href='/bills/seller-verification') Verify yourself to withdraw money!
+                    | &nbsp;
+                a.btn.btn-danger(href='/auth/logout') Logout?
+
+        else
+            h4
+                | Please Go to 
                 a.btn.btn-info(href='/auth/login') Login
                 | &nbsp;
                 a.btn.btn-warning(href='/auth/register') Register
+        br
         h5
-            | Developed with Love by  
+            | Developed by  
             a(href='https://github.com/AbdulRehmanMehar' target='_blank') Abdul Rehman
             | .

@@ -1,20 +1,36 @@
 html
   head
     title GFERRARO - Receive Payments and Payouts
-    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
-      
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')      
+
   body
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
         a.navbar-brand(href='/') GFERRARO
-        .collapse.navbar-collapse.ml-auto
+        .collapse.navbar-collapse
             ul.navbar-nav
                 li.nav-item
                     a.nav-link(href='/')
                         | Home 
+                if !current_user  
+                  li.nav-item
+                      a.nav-link(href='/auth/login') Login
+                  li.nav-item
+                      a.nav-link(href='/auth/register') Sign up
+                else if current_user.role == 'customer'
+                    li.nav-item
+                      a.nav-link(href='/products/all') All Products
+                else if current_user.role == 'seller'
+                    li.nav-item
+                      li.nav-item
+                        a.nav-link(href='/products/add') Add Product
+                      li.nav-item
+                        a.nav-link(href='/products/mine') My Products
+                      li.nav-item
+                        a.nav-link(href='/bills/earnings') My Earnings
+                      if !current_user.stripe_account_id
+                        li.nav-item
+                          a.nav-link(href='/bills/seller-verification') Verification
                 li.nav-item
-                    a.nav-link(href='/login') Login
-                li.nav-item
-                    a.nav-link(href='/register') Sign up
+                  a.nav-link(href='/docs') Docs
 
-    
     block content
