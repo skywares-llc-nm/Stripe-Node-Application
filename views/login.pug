@@ -1,0 +1,21 @@
+extends layout.pug
+
+block content
+    .container.mt-4
+        h3 Login
+        form(action='/auth/login', method='POST')
+            .form-group
+                label(for='exampleInputEmail1') Email address
+                input#exampleInputEmail1.form-control(type='email' name='email' aria-describedby='emailHelp' placeholder='Enter email')
+                small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.
+            .form-group
+                label(for='exampleInputPassword1') Password
+                input#exampleInputPassword1.form-control(type='password' name='password' placeholder='Password')
+
+            if errors
+                .form-group
+                    each error in errors
+                        p.text-danger #{error.msg + ' of ' + error.param.toUpperCase()}
+
+            button.btn.btn-primary(type='submit') Submit
+
