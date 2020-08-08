@@ -1,0 +1,44 @@
+extends layout.pug
+
+block content
+    h1 Product Model
+    p Stores Product Information added by the Seller.
+
+    hr
+
+    h2 Schema
+    ul
+        li Title: 
+            code String
+        li Price: 
+            code Number
+        li Owner ID: 
+            code ObjectId
+        li Description: 
+            code String
+
+    h4 The  
+        code Title 
+        | Field
+
+    p Title field stores title of the Product.
+
+    h4 The 
+        code Price 
+        | Field
+
+    p Title field stores price of the Product.
+
+    h4 The 
+        code Owner ID 
+        | Field
+
+    p Owner ID stores Foreign Key for User Model, where role == 'seller'. I also have mentioned in 
+        a(href="/docs/models/user") User Model
+        |, Only Seller can create Products.
+
+    h4 The 
+        code Description 
+        | Field
+
+    p Title field stores description of the Product.
