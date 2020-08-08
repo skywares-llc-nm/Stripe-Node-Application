@@ -1,0 +1,15 @@
+extends layout.pug
+
+block content
+    .container.mt-4
+        h3 Earnings
+
+        if earnings
+            each earning in earnings
+                .card
+                    .card-body
+                        p $ #{earning.amount}
+
+                    if !earning.withdrawn
+                        .card-actions
+                            a.btn.btn-info(href=`/bills/earnings/${earning._id}/withdraw`) Withdraw
