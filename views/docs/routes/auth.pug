@@ -1,0 +1,82 @@
+extends ../layout.pug
+
+block content
+    h1 Auth Router
+    p Handles all the routes, start with
+        code /auth
+
+    hr
+
+    h3 Imports
+    ul
+        li 
+            a(href="/docs/models/user") User Model
+        li Express (for Routing)
+        li Express Validator (to validate form data)
+
+
+    hr
+    
+
+    h3 
+        code /register 
+        | GET Route
+    p Renders 
+        code register.pug 
+        | View.
+
+    hr
+
+    h3 
+        code /register 
+        | POST Route
+
+    p Uses 
+        b Express Validator 
+        | Middleware to validate form data. And there's an 
+        code async function
+        | that handels the request.
+
+    p The function checks if there is any validation error (Set by 
+        b Express Validator
+        |), It renders 
+        code register.pug
+        | with validation errors.
+    
+    p If there's not any validation error, It creates User Object(or Document) and stores it in database. Then it stores the user object in 
+        b Session
+        |, saves the session and redirects to homepage.
+
+
+    hr
+
+    h3 
+        code /login 
+        | GET Route
+
+    p Renders 
+        code login.pug 
+        | View.
+
+    hr
+
+    h3 
+        code /login 
+        | POST Route
+
+    p Uses 
+        b Express Validator
+        | to validate form data. If the data isn't valid, it renders
+        code login.pug
+        | with validation errors.
+    p If there's not any error, it queries (or gets) the user document from the databse, stores it in session and redirects to homepag.
+
+    hr
+    
+    h3 
+        code /logout 
+        | GET Route
+
+    p Destroys the 
+        b Session
+        | and redirects to homepage.
