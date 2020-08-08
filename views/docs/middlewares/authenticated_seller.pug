@@ -1,0 +1,25 @@
+extends ../layout.pug
+
+block content
+    h1 Authenticated Seller Middleware
+    p It just valiadtes the 
+        code req.session 
+        | has current_user object (which is a document of 
+        a(href="/docs/models/user") User Model
+        | ).
+        | and current_user has 
+        code Seller
+        | Role.
+
+    hr
+
+    h2 Code
+    pre
+        code
+            | module.exports = (req, res, next) => { // express middleware function
+            |    if (req.session.current_user && req.session.current_user.role == 'seller') { // checks if the session has current_user object
+            |        next() // proceeds to the requested url if session has current_user
+            |    } else {
+            |        res.redirect('/') // redirects to homepage if session doesn't have current_user object
+            |    }
+            |}
