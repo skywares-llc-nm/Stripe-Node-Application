@@ -1,0 +1,94 @@
+extends ../layout.pug
+
+block content
+
+    h1 Product Route
+    p Handles routes that start with 
+        code /products
+
+    hr
+
+    h3 Imports
+
+    ul
+        li Express (for routing)
+        li  
+            a(href="/docs/models/product") Product Model
+
+        li Express Validator (to validate form data)
+        li 
+            a(href="/docs/models/authenticated") Authenticated Middleware
+
+        li 
+            a(href="/docs/models/authenticated_seller") Authenticated Seller Middleware
+
+    hr
+
+    h3
+        code /add 
+        | GET Route
+
+    p Uses 
+        a(href="/docs/models/authenticated_seller") Authenticated Seller Middleware 
+        | to authenticate the current_user has seller role.
+    
+    p Renders 
+        code add_product.pug 
+
+    hr
+
+    h3
+        code /add 
+        | POST Route
+
+    p Uses 
+        a(href="/docs/models/authenticated_seller") Authenticated Seller Middleware 
+        | to authenticate the current_user has seller role.
+    
+    p Uses  
+        b Express Validator 
+        | Middleware for form validation.
+
+    p If form has errors, it renders 
+        code add_product.pug 
+        | with errors.
+
+    p Else, It creates 
+        a(href="/docs/models/product") Product 
+        | Document, saves to database and redirects to homepage.
+
+    
+
+    hr
+
+    h3
+        code /mine 
+        | GET Route
+
+    p Uses 
+        a(href="/docs/models/authenticated_seller") Authenticated Seller Middleware 
+        | to authenticate the current_user has seller role.
+
+    p Renders 
+        code products.pug 
+        | with 
+        code Product
+        | Documents where 
+        code owner_id = current_user._id
+
+    
+    hr
+
+    h3
+        code /all 
+        | GET Route
+
+    p Uses 
+        a(href="/docs/models/authenticated") Authenticated Middleware 
+        | to authenticate the current_user.
+
+    p Renders 
+        code products.pug 
+        | with all 
+        code Product
+        | Documents.
