@@ -1,0 +1,79 @@
+extends ../layout.pug
+
+block content
+
+    h1 Order Route
+    p Handles routes that start with 
+        code /order
+
+    hr
+
+    h3 Imports
+    ul  
+        li dotEnv (to use varaiables, defined in .env file)
+        li 
+            a(href="/docs/model/order") Order Model
+        li Express (for routing)
+        li 
+            a(href="/docs/model/product") Product Model
+        li Stripe (for payment)
+        li 
+            a(href="/docs/model/earnings") Earnings Model
+        li Express Validator
+        li 
+            a(href="/docs/middlewares/authenticated_customer") Authenticated Customer Middleware
+
+    hr
+
+    h3 
+        code /place/:pid 
+        | Dynamic GET Route
+    
+    p Uses 
+        a(href="/docs/middlewares/authenticated_customer") Authenticated Customer
+        | Middleware to authenticate current_user has role of customer.
+    
+    p Gets Product Document from database where id equals 
+        code :pid 
+        |. Then checks if the product exists, Places the order on the product (creates and saves order document).
+
+    p Creates 
+        code PaymentIntent  
+        | with product price (in cents) using  
+        b  Stripe SDK
+        | and renders 
+        code place_order.pug  
+        | with 
+        code PaymentIntent.id 
+        | as client_secret and 
+        code Order  
+        |Object.
+
+    p 
+        code place_order.pug 
+        | uses 
+        b stripe.js 
+        | to confirm the payment using 
+        code client_secret 
+        |. When the form gets submitted, it sends order_id as formdata.
+
+    p The purpose of the view 
+        code place_order.pug
+        | is to confirm the payment and return order_id
+
+    p There are also some edge cases, but I think those are clear enough and don't need any documentation.
+
+    hr
+
+    h3 
+        code /place/:pid 
+        | Dynamic POST Route
+
+    p  Uses 
+        a(href="/docs/middlewares/authenticated_customer") Authenticated Customer
+        | Middleware to authenticate current_user has role of customer.
+
+    p Gets Product Document from database where id equals 
+        code :pid 
+        |. Then checks if the product exists, creates Earning document, stores it and returns response.
+
