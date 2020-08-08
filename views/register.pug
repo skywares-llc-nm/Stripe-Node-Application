@@ -1,0 +1,29 @@
+extends layout.pug
+
+block content
+    .container.mt-4
+        h3 Register
+        form(action='/auth/register', method='POST')
+            .form-group
+                label(for='exampleInputName') Name
+                input#exampleInputName.form-control(type='text' name='name' placeholder='Enter name')
+            .form-group
+                label(for='exampleInputEmail1') Email address
+                input#exampleInputEmail1.form-control(type='email' name='email' aria-describedby='emailHelp' placeholder='Enter email')
+                small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.
+            .form-group
+                label(for='exampleInputPassword1') Password
+                input#exampleInputPassword1.form-control(type='password' name='password' placeholder='Password')
+            .form-group
+                label(for='exampleFormControlSelect1') Role
+                select#exampleFormControlSelect1.form-control(name='role')
+                    option(value='customer') Customer
+                    option(value='seller') Seller
+
+            if errors
+                .form-group
+                    each error in errors
+                        p.text-danger #{error.msg + ' of ' + error.param.toUpperCase()}
+
+            button.btn.btn-primary(type='submit') Submit
+
