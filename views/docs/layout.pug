@@ -1,0 +1,96 @@
+html
+  head
+    title GFERRARO Docs - Receive Payments and Payouts
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
+    link(rel="stylesheet", href="/sidebar.css")
+
+  body
+    .container-fluid
+        .row
+            nav.col-md-2.d-none.d-md-block.bg-light.sidebar
+                .sidebar-sticky
+                    ul.nav.flex-column
+                        li.nav-item
+                            a.nav-link(href='/')
+                                | Home
+
+
+                    //- MODELS
+                    h6.sidebar-heading.d-flex.justify-content-between.align-items-center.px-3.mt-4.mb-1.text-muted
+                        span Models
+                            a.d-flex.align-items-center.text-muted(href='#')
+                                span(data-feather='plus-circle')
+
+                    ul.nav.flex-column.mb-2
+                        li.nav-item
+                            a.nav-link(href='/docs/models/user')
+                                span(data-feather='file-text')
+                                    |                  User
+                        li.nav-item
+                            a.nav-link(href='/docs/models/product')
+                                span(data-feather='file-text')
+                                        |                   Product
+                        li.nav-item
+                            a.nav-link(href='/docs/models/order')
+                                span(data-feather='file-text')
+                                        |                   Order
+                        li.nav-item
+                            a.nav-link(href='/docs/models/earnings')
+                                span(data-feather='file-text')
+                                        |                   Earnings
+
+                    //- Middlewares
+                    h6.sidebar-heading.d-flex.justify-content-between.align-items-center.px-3.mt-4.mb-1.text-muted
+                        span Middlewares
+                            a.d-flex.align-items-center.text-muted(href='#')
+                                span(data-feather='plus-circle')
+
+                    ul.nav.flex-column.mb-2
+                        li.nav-item
+                            a.nav-link(href='/docs/middlewares/authenticated')
+                                span(data-feather='file-text')
+                                    |                  Authenticated
+
+                        li.nav-item
+                            a.nav-link(href='/docs/middlewares/authenticated_customer')
+                                span(data-feather='file-text')
+                                    |                  Authenticated Customer
+
+                        li.nav-item
+                            a.nav-link(href='/docs/middlewares/authenticated_seller')
+                                span(data-feather='file-text')
+                                    |                  Authenticated Seller
+
+                    //- ROUTES
+                    h6.sidebar-heading.d-flex.justify-content-between.align-items-center.px-3.mt-4.mb-1.text-muted
+                        span Routes
+                            a.d-flex.align-items-center.text-muted(href='#')
+                                span(data-feather='plus-circle')
+
+                    ul.nav.flex-column.mb-2
+                        li.nav-item
+                            a.nav-link(href='/docs/routes/auth')
+                                span(data-feather='file-text')
+                                    |                   Auth
+
+                        li.nav-item
+                            a.nav-link(href='/docs/routes/order')
+                                span(data-feather='file-text')
+                                    |                   Order
+                        
+                        li.nav-item
+                            a.nav-link(href='/docs/routes/payment')
+                                span(data-feather='file-text')
+                                    |                   Payment
+
+                        li.nav-item
+                            a.nav-link(href='/docs/routes/product')
+                                span(data-feather='file-text')
+                                    |                   Product
+
+
+            main.col-md-9.ml-sm-auto.col-lg-10.px-4(role='main', style="overflow-y: auto;")
+                .container.my-5
+                    block content
+
+                    
