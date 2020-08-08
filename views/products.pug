@@ -1,0 +1,17 @@
+extends layout.pug
+
+block content
+    .container.mt-4
+        h3 Products
+
+        if products
+            each product in products
+                .card
+                    .card-body
+                        h3.card-title= product.title
+                        h5= product.price + '$'
+                        p= product.description
+                    
+                    if current_user.role == 'customer'
+                        .card-actions
+                            a.btn.btn-info(href=`/orders/place/${product._id}`) Place Order
