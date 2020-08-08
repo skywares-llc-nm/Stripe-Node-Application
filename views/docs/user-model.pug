@@ -1,0 +1,97 @@
+extends layout.pug
+
+block content
+    
+        h1 User Model
+        p In order to get benift from this application (I mean to sale or purchase something), The stakeholder needs to provide his details. The User Model stores details of our stakeholders.
+
+        hr
+
+        h2 Stakeholders?
+        p Anyone who interacts with the application, is called the stakeholder for the application. We have two of Stakeholders in this application.
+
+        ol
+                li Seller
+                li Customer
+
+        h4 What can a Seller do?
+        p A Seller can perform following operations:
+        
+        ul
+                li Add Products to Sell
+                li Withdraw his Earnings (based on the 
+                        a(href="/docs/models/order") Orders
+                        |. )
+
+        p User will have to Verify his details (by 
+                        a(href="https://stripe.com/docs/connect/identity-verification") Stripe Onboarding
+                        |) before he can withdraw his earnings.
+
+
+        h4 What can a Customer do?
+        p A Customer can perform following operations:
+        
+        ul
+                li Place the Order
+                li Pay for the Order (Using 
+                        a(href="https://stripe.com/docs/api/payment_intents") Stripe Payment Intent
+                        |)
+
+
+        
+
+        hr
+
+        h2 User Schema
+        p Here is the Schema for User Model
+
+        ul
+                li Name:   
+                        code String
+                li Email: 
+                        code String
+                li Password: 
+                        code String
+                li Role: 
+                        code String
+                li Stripe Account ID:  
+                        code String
+
+
+        h4 The 
+                code Name 
+                | Field
+
+        p This field stores name of the User.
+
+        h4 The 
+                code Email 
+                | Field
+
+        p This field stores email of the User. User will need to enter his email while loging in.
+
+        h4 The 
+                code Password 
+                | Field
+
+        p To authenticate the User. User will provide password in order to login to the application.
+        
+
+        h4 The 
+                code Role 
+                | Field
+
+        p As we know, there will be two type of Users (the 
+                b Sellers 
+                | and the )
+                b Customers.
+                | It helps us verify role of the user (whether the user is Seller or Customer.)
+
+
+        h4 The 
+                code Stripe Account ID 
+                | Field (Only for Seller Role)
+
+        p In order to receive money, The Seller needs to have a Stripe Account. But our goal is to bound the user to our application. We create a custom Stripe Account (for Seller using Stripe API) and 
+                b Store the Stripe Account ID
+                |. This field stores Stripe Account ID of the Seller. (for Role == 'Customer', it'll be null)
