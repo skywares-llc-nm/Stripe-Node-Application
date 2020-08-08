@@ -1,0 +1,26 @@
+extends layout.pug
+
+block content
+    h1 Order Model
+    p Stores Order created by the Customer.
+
+    hr
+
+    h2 Schema
+    ul
+        li Product ID: 
+            code ObjectId
+        li Customer ID: 
+            code ObjectId
+
+    h4 The  
+        code Product ID  
+        | Field
+
+    p Foreign Key, that stores the Id of the product, on which the order is placed.
+
+    h4 The 
+        code Customer ID  
+        | Field
+
+    p Foreign Key, that stores the Id of the User (where role == 'customer'), who placed the order.
